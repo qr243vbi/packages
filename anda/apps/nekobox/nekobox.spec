@@ -14,7 +14,7 @@
 
 # Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
-
+%define debug_package %{nil}
 %define core nekobox_core
 Name:           nekobox
 Version:        5.10.40
