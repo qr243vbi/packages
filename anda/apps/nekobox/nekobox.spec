@@ -17,8 +17,8 @@
 
 %define core nekobox_core
 Name:           nekobox
-Version:        5.10.37
-Release:        0%{?autorelease}
+Version:        5.10.40
+Release:        1%{?dist}
 Summary:        Qt based cross-platform GUI proxy configuration manager (backend: sing-box)
 License:        GPL-3.0-only
 URL:            https://github.com/qr243vbi/nekobox
