@@ -64,8 +64,9 @@ ret_loop:
 
 my $res = $ua->request( $req );
 
+my $res_code = $res->code;
 
-if ($res->code == 404){
+if ($res_code == 404){
   my $uri = URI->new("https://api.opensuse.org/source/$project/$package");
   $uri->query_form(
     cmd       => 'copy',
@@ -81,7 +82,7 @@ if ($res->code == 404){
   } else {
     goto end_loop;
   }
-} elsif ($ret->code == 401) {
+} elsif ($res_code == 401) {
   goto end_loop;
 }
 
