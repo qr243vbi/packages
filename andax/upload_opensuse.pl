@@ -3,6 +3,9 @@ use RPM2;
 use File::Temp qw(tempdir);
 use HTTP::Request;
 use Cwd;
+use LWP::UserAgent;
+use MIME::Base64;
+
 my $old_directory = Cwd::getcwd();
 my $project = $ENV{OBS_PROJECT} // die "Set OBS_PROJECT";
 my $user = $ENV{OBS_USER} // die "Set OBS_USER";
@@ -43,10 +46,6 @@ extract_rpm($pkg->filename, $tmpdir);
 
 chdir($tmpdir);
 
-
-
-use LWP::UserAgent;
-use MIME::Base64;
 
 my $base = "https://api.opensuse.org/source/$project/$package";
 
