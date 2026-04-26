@@ -31,6 +31,7 @@ install -Dpm755 *.sh -t %buildroot%_libexecdir/%name/
 
 %files
 %attr(0755, root, root) %_libexecdir/%name/*.sh
+%dir %_libexecdir/%name
 %{_rpmmacrodir}/macros.anda
 %{_rpmmacrodir}/macros.caching
 %{_rpmmacrodir}/macros.cargo_extra
