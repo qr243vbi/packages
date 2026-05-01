@@ -1,2 +1,3 @@
 setBadness("binary-or-shlib-defines-rpath", 0)
 setBadness("arch-dependent-file-in-usr-share", 0)
+setBadness("devel-file-in-non-devel-package", 0)
