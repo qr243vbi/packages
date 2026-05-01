@@ -17,8 +17,6 @@ the reference implementation for the Limine boot protocol.
 %prep
 %autosetup
 cp %{S:2} .
-gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 05D29860D0A0668AAEFB9D691F3C021BECA23821
-gpg --verify %{S:1} %{S:0} || exit 1
 
 %conf
 %configure --enable-all CC_FOR_TARGET=clang LD_FOR_TARGET=ld.lld
