@@ -35,6 +35,9 @@ Requires:       libXrender
 Requires:       libXtst
 Requires:       glibc
 Requires:       libsecret
+%if 0%{suse_version}
+BuildRequires: filesystem
+%endif
 
 BuildRequires:  desktop-file-utils
 
