@@ -6,7 +6,8 @@ Release:        2%?dist
 License:        BSD-2-Clause AND BSD-3-Clause AND ISC
 Summary:        A binary package system designed and implemented from scratch
 URL:            https://github.com/void-linux/xbps
-Source:         %{url}/archive/refs/tags/%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+Source1:        xbps.rpmlintrc
 Packager:       Metcya <metcya@gmail.com>
 
 BuildRequires:  gcc
@@ -16,9 +17,7 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(libarchive) >= 3.3.3
 Requires:       %name-libs = %evr
-%if 0%{?suse_version}
-BuildRequires:  filesystem
-%endif
+
 %pkg_completion -B xbps xbps-checkvers xbps-create xbps-dgraph xbps-install xbps-pkgdb xbps-query xbps-reconfigure xbps-remove xbps-rindex
 %pkg_completion -z xbps xbps_src
 
