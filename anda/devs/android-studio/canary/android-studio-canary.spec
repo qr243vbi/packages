@@ -84,6 +84,7 @@ EOF
 
 %files
 %license %{_licensedir}/%{name}/LICENSE.txt
+%dir %{_licensedir}/%{name}
 %{_libexecdir}/%{name}
 %{_bindir}/%{name}
 %{_datadir}/pixmaps/android-studio-canary.png
