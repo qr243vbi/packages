@@ -16,7 +16,9 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(libarchive) >= 3.3.3
 Requires:       %name-libs = %evr
-
+%if 0%{?suse_version}
+BuildRequires:  filesystem
+%endif
 %pkg_completion -B xbps xbps-checkvers xbps-create xbps-dgraph xbps-install xbps-pkgdb xbps-query xbps-reconfigure xbps-remove xbps-rindex
 %pkg_completion -z xbps xbps_src
 
@@ -71,6 +73,10 @@ featureful and portable as much as possible.
 %_mandir/man5/*.5.*
 %_mandir/man7/*.7.*
 /var/db/%name/keys/*.plist
+%dir %{_datadir}/xbps.d
+%dir /var/db
+%dir /var/db/xbps
+%dir /var/db/xbps/keys
 
 %changelog
 * Tue Feb 24 2026 Metcya <metcya@gmail.com> - 0.60.7-2
