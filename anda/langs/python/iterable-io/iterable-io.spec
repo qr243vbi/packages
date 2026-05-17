@@ -2,7 +2,7 @@
 %global _desc Python library to adapt iterables to a file-like interface.
 
 Name:			python-%{pypi_name}
-Version:		1.0.3
+Version:		1.0.4
 Release:		1%{?dist}
 Summary:		Python library to adapt iterables to a file-like interface
 
