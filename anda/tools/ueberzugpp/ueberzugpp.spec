@@ -1,6 +1,6 @@
 Name:       ueberzugpp
-Version:    2.9.8
-Release:    1%?dist
+Version:    2.9.10
+Release:    1%{?dist}
 License:    GPL-3.0
 Summary:    Drop in replacement for ueberzug written in C++ 
 URL:        https://github.com/jstkdng/%{name}
