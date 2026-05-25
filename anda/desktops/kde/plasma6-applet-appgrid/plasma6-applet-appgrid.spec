@@ -1,5 +1,5 @@
 Name:           plasma6-applet-appgrid
-Version:        1.7.10
+Version:        1.8.0
 Release:        1%{?dist}
 Summary:        A modern application launcher for KDE Plasma, inspired by macOS and COSMIC
 # Main code: GPL-2.0-or-later
