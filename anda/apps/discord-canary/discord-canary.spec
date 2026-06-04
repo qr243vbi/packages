@@ -6,7 +6,7 @@
 %global __provides_exclude_from %{_datadir}/%{name}/.*\\.so
 
 Name:           discord-canary
-Version:        1.0.1199
+Version:        1.0.1201
 Release:        1%{?dist}
 Summary:        Free Voice and Text Chat for Gamers
 URL:            discord.com
