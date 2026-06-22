@@ -5,7 +5,7 @@
 %global crate bottom
 
 Name:           rust-bottom
-Version:        0.14.0
+Version:        0.14.1
 Release:        1%{?dist}
 Summary:        Customizable cross-platform graphical process/system monitor for the terminal
 
