@@ -6,7 +6,7 @@
 %global crate deno
 
 Name:           rust-deno
-Version:        2.9.0
+Version:        2.9.1
 Release:        1%{?dist}
 Summary:        Deno executable
 
