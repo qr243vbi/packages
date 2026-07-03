@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           kew
-Version:        4.1.6
+Version:        4.1.7
 Release:        1%{?dist}
 Summary:        Music for the Shell
 URL:            https://codeberg.org/ravachol/kew
