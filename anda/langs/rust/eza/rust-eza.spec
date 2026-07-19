@@ -4,8 +4,8 @@
 %global crate eza
 
 Name:           rust-eza
-Version:        0.23.4
-Release:        1%?dist
+Version:        0.23.5
+Release:        1%{?dist}
 Summary:        Modern replacement for ls
 
 License:        EUPL-1.2
