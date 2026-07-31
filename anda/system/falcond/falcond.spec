@@ -1,7 +1,7 @@
 %global _include_minidebuginfo 0
 
 Name:           falcond
-Version:        2.0.12
+Version:        2.0.13
 Release:        1%{?dist}
 Summary:        Advanced Linux Gaming Performance Daemon
 License:        MIT
