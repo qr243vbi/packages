@@ -11,7 +11,7 @@
 %endif
 
 Name:           %{real_name}-580xx
-Version:        580.173.02
+Version:        580.178.04
 Release:        1%{?dist}
 Summary:        NVIDIA's proprietary display driver for NVIDIA graphic cards
 Epoch:          3
