@@ -4,8 +4,8 @@
 %define debug_package %{nil}
 
 Name:			python-%{pypi_name}
-Version:		0.1.12
-Release:		1%?dist
+Version:		0.1.13
+Release:		1%{?dist}
 Summary:		Experiment management framework
 License:		MIT
 URL:			https://github.com/facebookresearch/dora
