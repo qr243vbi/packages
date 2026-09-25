@@ -82,7 +82,7 @@ jobs:
         if: ${{ matrix.pkg.labels.mock != '1' }}
         run: |
           dir=$(dirname ${{ matrix.pkg.pkg }})
-          dnf5 builddep -y ${dir}/*.spec
+          dnf5 in -y python3-{copr,libdnf5,rpm}
 
       - name: Build with Andaman
         run: anda build ${{ matrix.pkg.pkg }} -r rpmbuild -A='-bs'
@@ -105,7 +105,7 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: ${{ steps.art.outputs.name }}
-          compression-level: 0 # The RPMs are already compressed :p
+          compression-level: 0 
           path: |
             anda-build/rpm/srpm/*
 
@@ -116,9 +116,10 @@ jobs:
           subject-path: |
             anda-build/rpm/srpm/*
 
-      - name: Notify Madoguchi (Success)
+      - name: Notify COPR (Success)
         if: inputs.publish && success()
-        run: echo ./.github/workflows/mg.sh true "${{matrix.pkg.pkg}}" "${{matrix.version}}" "${{matrix.pkg.arch}}" "${{github.run_id}}" "${{secrets.MADOGUCHI_JWT}}" "$GITHUB_SHA"
-      - name: Notify Madoguchi (Failure)
+        run: ./.github/workflows/deps.py '${{secrets.REPOID}}' anda-build/rpm/srpm/*.src.rpm --build --tree --login '${{secrets.LOGIN}}' --token '${{secrets.TOKEN}}' --owner '${{secrets.OWNER}}' --project '${{secrets.PROJECT}}'
+ 
+      - name: Notify COPR (Failure)
         if: inputs.publish && (cancelled() || failure())
-        run: echo ./.github/workflows/mg.sh false "${{matrix.pkg.pkg}}" "${{matrix.version}}" "${{matrix.pkg.arch}}" "${{github.run_id}}" "${{secrets.MADOGUCHI_JWT}}" "$GITHUB_SHA"
+        run: echo failed to build
