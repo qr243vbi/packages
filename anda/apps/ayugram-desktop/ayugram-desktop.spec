@@ -23,9 +23,10 @@ Release: 0%{?dist}
 License: GPL-3.0-or-later
 
 URL:      https://github.com/ayugram/ayugramdesktop
+%define archive AyuGramDesktop-%{version}-full
 
 Summary:  Unofficial Telegram Desktop client
-Source0:  https://github.com/AyuGram/AyuGramDesktop/releases/download/v%{version}/AyuGramDesktop-%{version}-full.tar.gz
+Source0:  https://github.com/AyuGram/AyuGramDesktop/releases/download/v%{version}/%{archive}.tar.gz
 
 
 BuildRequires: cmake(Microsoft.GSL)
@@ -147,7 +148,7 @@ business messaging needs.
 # Unpacking Telegram Desktop source archive...
 %autosetup -n %{appname}-%{version} -p1
 
-%autopatch -p1
+%autopatch -p1 -n %{archive}
 
 %build
 # Building Telegram Desktop using cmake...
