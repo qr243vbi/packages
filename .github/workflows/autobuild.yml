@@ -67,7 +67,6 @@ jobs:
               ;;
 
             *)
-              # Manual/workflow calls: build all packages.
               find anda \
                 -mindepth 2 \
                 -maxdepth 2 \
@@ -118,4 +117,4 @@ jobs:
     secrets: inherit
 
     with:
-      package: ${{ matrix.package }}
+      packages: ${{ matrix.package }}
