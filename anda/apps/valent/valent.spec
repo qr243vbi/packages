@@ -1,14 +1,16 @@
 %global commit df82168bc37ad1ec700c66b0f0f5dfd7a07be485
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commit_date 20260316
+%global commit_date 20260925
+%global libgnome 0a4eda0cdc2deb352bebc70ec697c42af46094e4
 
 Name:               valent
 Version:            0~%{commit_date}git.%{shortcommit}
-Release:            2%{?dist}
+Release:            1%{?dist}
 Summary:            Connect, control and sync devices
 License:            GPL-3.0-or-later
 URL:                https://github.com/andyholmes/valent
 Source0:            %{url}/archive/%{commit}/valent-%{commit}.tar.gz
+Source1:            https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{libgnome}/libgnome-volume-control-%{libgnome}.tar.bz2
 
 Group:          System/GUI/GNOME
 
@@ -22,6 +24,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  pkg-config
 BuildRequires:  sassc
 BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libdex-1)
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.76.0
 BuildRequires:  pkgconfig(gtk4) >= 4.10.0
 BuildRequires:  pkgconfig(gio-2.0) >= 2.76.0
@@ -34,7 +37,7 @@ BuildRequires:  pkgconfig(libportal-gtk4)
 BuildRequires:  pkgconfig(libebook-1.2) >= 3.34
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.2.0
 BuildRequires:  pkgconfig(sysprof-capture-4) >= 3.38
-BuildRequires:  pkgconfig(libwalbottle-0) >= 0.3.0
+#BuildRequires:  pkgconfig(libwalbottle-0) >= 0.3.0
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-video-1.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
@@ -91,16 +94,18 @@ Valent is an implementation of the KDE Connect protocol, built on GNOME platform
 
 
 %prep
-%setup -q
-sed "s~libportal_version = .*~libportal_version = '>= 0.5'~" -i meson.build
+%autosetup -n valent-%{commit}
+rm -r subprojects/gvc*
+tar -xf %{SOURCE1} -C subprojects
+mv subprojects/libgnome-volume-control* subprojects/gvc
 
 %build
 %meson
 sed 's/--pkg=libpeas-2/--pkg=Peas-2/' -i %{_vpath_builddir}/build.ninja
 %meson_build
 
-%post -n libvalent-%{soname} -p /sbin/ldconfig
-%postun -n libvalent-%{soname} -p /sbin/ldconfig
+%post -n %{libname} -p /sbin/ldconfig
+%postun -n %{libname} -p /sbin/ldconfig
 
 %install
 %meson_install
