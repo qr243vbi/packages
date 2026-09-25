@@ -72,7 +72,6 @@ BuildRequires:  cmake(Crc32c)
 %description
 %{summary}.
 
-
 %package devel
 Summary:        Development files for %{name}
 Provides:       %{name}-static = %{version}
