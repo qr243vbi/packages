@@ -534,7 +534,9 @@ def build_tree(tree, owner, project, buildid='', path = None, login = '', token 
                     path,
                     buildopts={"timeout": 180000}
                 )
-                exit(0)
+                return 0
+            else:
+                return 1
         else:
             if buildid.isnumeric():
                 bld = {'id': int(buildid)}
@@ -597,6 +599,7 @@ def build_tree(tree, owner, project, buildid='', path = None, login = '', token 
                     build_ids[u] = bld['id']
                     build_package_childs(u)
             build_package_childs(0)
+            return 0
 
     
 def get_srpm_name(path):
@@ -716,7 +719,7 @@ def main():
         runtime_requires
     )
     if args.build:
-        build_tree(tree, args.owner, args.project, args.id, path, args.login, args.token)
+        return build_tree(tree, args.owner, args.project, args.id, path, args.login, args.token)
     
     return 1 if tree == 1 else 0
 
