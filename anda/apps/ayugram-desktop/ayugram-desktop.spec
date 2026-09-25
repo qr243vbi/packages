@@ -122,7 +122,6 @@ BuildRequires: pkgconfig(openh264)
 BuildRequires: rpm_macro(_metainfodir)
 BuildRequires: (qt6-shadertools or qt6-qtshadertools)
 
-
 Requires: hicolor-icon-theme
 Requires: (qt6-imageformats%{?_isa} or qt6-qtimageformats%{?_isa})
 
@@ -160,6 +159,11 @@ business messaging needs.
     -DDESKTOP_APP_DISABLE_WAYLAND_INTEGRATION:BOOL=OFF \
     -DDESKTOP_APP_DISABLE_X11_INTEGRATION:BOOL=OFF \
     -DDESKTOP_APP_DISABLE_CRASH_REPORTS:BOOL=ON
+cat << EOF > third_libyuv.h
+#include <libyuv.h>
+EOF
+install -Dm644 third_libyuv.h third_party/libyuv/include/libyuv.h
+install -Dm644 third_libyuv.h Telegram/ThirdParty/tgcalls/tgcalls/third_party/libyuv/include/libyuv.h
 %cmake_build
 
 %install
