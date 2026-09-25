@@ -119,7 +119,7 @@ jobs:
       - name: Notify COPR (Success)
         if: inputs.publish && success()
         run: |
-          dnf copr enable '${{secrets.OWNER}}/${{secrets.PROJECT}}'; 
+          dnf copr enable -y '${{secrets.OWNER}}/${{secrets.PROJECT}}'; 
           ./.github/workflows/deps.py '${{secrets.REPOID}}' anda-build/rpm/srpm/*.src.rpm --build --tree --login '${{secrets.LOGIN}}' --token '${{secrets.TOKEN}}' --owner '${{secrets.OWNER}}' --project '${{secrets.PROJECT}}'
  
       - name: Notify COPR (Failure)
