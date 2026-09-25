@@ -511,7 +511,7 @@ def start(repo_id, source, print_tree=False,
     return tree
     
 
-def build_tree(tree, owner, project, buildid='', path = None, login = '', token = ''):
+def build_tree(tree, owner, project, buildid='', path = None, login = '', token = '', copr_url = 'https://copr.fedorainfracloud.org'):
     if (not login) and (not token) and (not owner):
         cli = Client.create_from_config_file()
     else:
@@ -519,6 +519,7 @@ def build_tree(tree, owner, project, buildid='', path = None, login = '', token 
             "username": owner,
             "token": token,
             "login": login
+            "copr_url": copr_url
         })
     if not owner:
         owner = cli.base_proxy.auth_username()
@@ -665,6 +666,13 @@ def main():
         "--login",
         dest="login",
         help="Login COPR secret"
+    )
+    
+    parser.add_argument(
+        "--copr-url",
+        dest="copr_url",
+        default="https://copr.fedorainfracloud.org"
+        help="COPR URL"
     )
     
     parser.add_argument(
