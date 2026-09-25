@@ -10,15 +10,6 @@ on:
       packages:
         description: "Packages to Build"
         required: true
-      custom_builder:
-        description: "Custom Builder"
-        required: false
-        default: ""
-      architecture:
-        description: "Architectures"
-        required: false
-        default: ""
-        type: string
 
 run-name: ${{ inputs.packages }}
 
