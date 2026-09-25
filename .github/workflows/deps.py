@@ -518,7 +518,7 @@ def build_tree(tree, owner, project, buildid='', path = None, login = '', token 
         cli = Client({
             "username": owner,
             "token": token,
-            "login": login
+            "login": login,
             "copr_url": copr_url
         })
     if not owner:
