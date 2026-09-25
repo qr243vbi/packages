@@ -17,7 +17,7 @@ jobs:
   manifest:
     outputs:
       build_matrix: ${{ steps.parsing.outputs.build_matrix }}
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/terrapkg/builder:frawhide
       options: --cap-add=SYS_ADMIN --privileged
