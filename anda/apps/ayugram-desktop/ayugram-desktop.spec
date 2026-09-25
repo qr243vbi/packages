@@ -146,9 +146,7 @@ business messaging needs.
 
 %prep
 # Unpacking Telegram Desktop source archive...
-%autosetup -n %{appname}-%{version} -p1
-
-%autopatch -p1 -n %{archive}
+%autosetup -n %{archive} -p1
 
 %build
 # Building Telegram Desktop using cmake...
