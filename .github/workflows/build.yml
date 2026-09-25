@@ -10,6 +10,13 @@ on:
       packages:
         description: "Packages to Build"
         required: true
+        
+  workflow_call:
+    inputs:
+      packages:
+        description: "Packages to Build"
+        required: true
+        type: string
 
 run-name: ${{ inputs.packages }}
 
