@@ -701,8 +701,10 @@ def main():
     source = args.source
     
     path = Path(source).expanduser()
-    if path.exists() and path.is_file() and path.suffix == ".src.rpm":
+    if path.exists() and path.is_file():
         source = get_srpm_name(path)
+        if not source:
+            path = None
     else:
         path = None
 
