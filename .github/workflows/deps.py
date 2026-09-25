@@ -671,7 +671,7 @@ def main():
     parser.add_argument(
         "--copr-url",
         dest="copr_url",
-        default="https://copr.fedorainfracloud.org"
+        default="https://copr.fedorainfracloud.org",
         help="COPR URL"
     )
     
