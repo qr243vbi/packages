@@ -67,6 +67,7 @@ BuildRequires:  pkgconfig(absl_variant)
 BuildRequires:  cmake(Microsoft.GSL)
 BuildRequires:  pkgconfig(libyuv)
 BuildRequires:  pkgconfig(rnnoise)
+BuildRequires:  cmake(Crc32c)
 
 %description
 %{summary}.
@@ -99,6 +100,7 @@ Requires:       pkgconfig(xrender)
 Requires:       pkgconfig(xtst)
 Requires:       pkgconfig(libyuv)
 Requires:       pkgconfig(rnnoise)
+Requires:       cmake(Crc32c)
 
 %description devel
 %{summary}.
