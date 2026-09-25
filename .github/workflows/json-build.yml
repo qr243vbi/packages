@@ -82,7 +82,7 @@ jobs:
         if: ${{ matrix.pkg.labels.mock != '1' }}
         run: |
           dir=$(dirname ${{ matrix.pkg.pkg }})
-          dnf5 in -y python3-{copr,libdnf5,rpm}
+          dnf5 in -y python3-{copr,libdnf5,rpm} dnf5-plugins
 
       - name: Build with Andaman
         run: anda build ${{ matrix.pkg.pkg }} -r rpmbuild -A='-bs'
@@ -118,7 +118,9 @@ jobs:
 
       - name: Notify COPR (Success)
         if: inputs.publish && success()
-        run: ./.github/workflows/deps.py '${{secrets.REPOID}}' anda-build/rpm/srpm/*.src.rpm --build --tree --login '${{secrets.LOGIN}}' --token '${{secrets.TOKEN}}' --owner '${{secrets.OWNER}}' --project '${{secrets.PROJECT}}'
+        run: |
+          dnf copr enable '${{secrets.OWNER}}/${{secrets.PROJECT}}'; 
+          ./.github/workflows/deps.py '${{secrets.REPOID}}' anda-build/rpm/srpm/*.src.rpm --build --tree --login '${{secrets.LOGIN}}' --token '${{secrets.TOKEN}}' --owner '${{secrets.OWNER}}' --project '${{secrets.PROJECT}}'
  
       - name: Notify COPR (Failure)
         if: inputs.publish && (cancelled() || failure())
