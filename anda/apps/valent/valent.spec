@@ -9,91 +9,139 @@ Summary:            Connect, control and sync devices
 License:            GPL-3.0-or-later
 URL:                https://github.com/andyholmes/valent
 Source0:            %{url}/archive/%{commit}/valent-%{commit}.tar.gz
-Source1:            https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/master/libgnome-volume-control-master.tar.gz
-Packager:           Tulip Blossom <tulilirockz@outlook.com>
 
-Provides:           bundled(gvc)
-BuildRequires:      desktop-file-utils
-BuildRequires:      evolution-data-server-devel
-BuildRequires:      gcc
-BuildRequires:      gcc-c++
-BuildRequires:      libphonenumber-devel
-BuildRequires:      meson
-BuildRequires:      pkgconfig(glycin-2)
-BuildRequires:      pkgconfig(glycin-gtk4-2)
-BuildRequires:      pkgconfig(gnutls)
-BuildRequires:      pkgconfig(gstreamer-1.0)
-BuildRequires:      pkgconfig(json-glib-1.0)
-BuildRequires:      pkgconfig(libadwaita-1)
-BuildRequires:      pkgconfig(libdex-1)
-BuildRequires:      pkgconfig(libpeas-2)
-BuildRequires:      pkgconfig(libpipewire-0.3)
-BuildRequires:      pkgconfig(libportal-gtk4)
-BuildRequires:      pkgconfig(libpulse)
-BuildRequires:      pkgconfig(tracker-sparql-3.0)
+Group:          System/GUI/GNOME
+
+BuildRequires:  meson >= 0.59.0
+BuildRequires:  fdupes
+BuildRequires:  vala
+BuildRequires:  gcc-c++ 
+BuildRequires:  cmake
+BuildRequires:  sed
+BuildRequires:  desktop-file-utils
+BuildRequires:  pkg-config
+BuildRequires:  sassc
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.76.0
+BuildRequires:  pkgconfig(gtk4) >= 4.10.0
+BuildRequires:  pkgconfig(gio-2.0) >= 2.76.0
+BuildRequires:  pkgconfig(gnutls) >= 3.1.3
+BuildRequires:  pkgconfig(json-glib-1.0) >= 1.6.0
+BuildRequires:  pkgconfig(libpeas-2)
+BuildRequires:  pkgconfig(tracker-sparql-3.0)
+BuildRequires:  pkgconfig(sqlite3) >= 3.24.0
+BuildRequires:  pkgconfig(libportal-gtk4)
+BuildRequires:  pkgconfig(libebook-1.2) >= 3.34
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.2.0
+BuildRequires:  pkgconfig(sysprof-capture-4) >= 3.38
+BuildRequires:  pkgconfig(libwalbottle-0) >= 0.3.0
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gstreamer-video-1.0)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(libpipewire-0.3)
+BuildRequires:  libpeas-devel
+BuildRequires:  cmake(libphonenumber)
+BuildRequires:  filesystem
+
+Recommends: valent-lang
+#BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+
+%define soname 1-0
+
+%if 0%{?suse_version}
+%package -n typelib-1_0-libvalent-%{soname}
+Summary: Typelib for valent
+%description -n typelib-1_0-libvalent-%{soname}
+Typelib for valent.
+%define libname libvalent-%{soname}
+%else
+%define libname libvalent
+%endif
+
+%package -n libvalent-devel
+Summary: Development library for valent
+Requires: %{libname} = %{version}
+%description -n libvalent-devel
+Development library for valent.
+
+%package -n %{libname}
+Summary: Library for valent
+%description -n %{libname}
+Library for valent.
+
+%package -n valent-lang
+BuildArch: noarch
+Summary: Languages for valent
+%description -n valent-lang
+Languages for valent.
 
 %description
-%{summary}.
+Securely connect your devices to open files and links where you need them, get notifications when you need them, stay in control of your media and more.
 
-%package devel
-%pkg_devel_files
-%{_datadir}/vala/vapi/libvalent-1.deps
-%{_datadir}/vala/vapi/libvalent-1.vapi
+Features:
 
-%package langpacks
-Summary:           Translations for %{name}
-BuildArch:         noarch
-Requires:          %{name} = %{evr}
+Sync contacts, notifications and clipboard content
+Control media players and volume
+Share files, links and text
+Virtual touchpad and keyboard
+Call and text notification
+Execute custom commands
 
-%description langpacks
-This package contains translations for %{name}.
+Valent is an implementation of the KDE Connect protocol, built on GNOME platform libraries.
+
 
 %prep
-%autosetup -n valent-%{commit} -p1
-rm -r subprojects/gvc*
-tar -xf %{SOURCE1} -C subprojects
-mv subprojects/libgnome-volume-control* subprojects/gvc
-
-%conf
-%meson
+%setup -q
+sed "s~libportal_version = .*~libportal_version = '>= 0.5'~" -i meson.build
 
 %build
+%meson
+sed 's/--pkg=libpeas-2/--pkg=Peas-2/' -i %{_vpath_builddir}/build.ninja
 %meson_build
+
+%post -n libvalent-%{soname} -p /sbin/ldconfig
+%postun -n libvalent-%{soname} -p /sbin/ldconfig
 
 %install
 %meson_install
-
-%files langpacks
-%{_datadir}/locale
-
+rm -R %{buildroot}%{_datadir}/locale/ru* || :
+%fdupes %{buildroot}
 
 %files
-%license LICENSE
 %doc README.md
+%license LICENSE*
+%{_sysconfdir}/xdg/**/*
 %{_bindir}/valent
-%{_datadir}/applications/ca.andyholmes.Valent.desktop
-%{_datadir}/dbus-1/services/ca.andyholmes.Valent.service
-%{_datadir}/gir-1.0/Valent-1.gir
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.battery.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.clipboard.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.connectivity_report.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.contacts.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.notification.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.runcommand.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.sftp.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.share.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.systemvolume.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.telephony.gschema.xml
-%{_datadir}/glib-2.0/schemas/ca.andyholmes.Valent.Plugin.xdp.gschema.xml
-%{_datadir}/icons/hicolor/scalable/apps/ca.andyholmes.Valent.svg
-%{_datadir}/icons/hicolor/symbolic/apps/ca.andyholmes.Valent-symbolic.svg
-%{_datadir}/metainfo/ca.andyholmes.Valent.metainfo.xml
-%{_libdir}/girepository-1.0/Valent-1.typelib
-%{_libdir}/libvalent-1.so.0
-%{_libdir}/libvalent-1.so.1.0.0
-%{_sysconfdir}/xdg/autostart/ca.andyholmes.Valent-autostart.desktop
+%{_datadir}/dbus-1/**/*
+%{_datadir}/glib-2.0/**/*
+%{_datadir}/icons/**/*
+%{_datadir}/metainfo/*
+%{_datadir}/applications/*
+%dir %{_datadir}/applications
+%dir %{_datadir}/metainfo
+%dir %{_datadir}/glib-2.0
+%dir %{_datadir}/dbus-1
+
+%files -n valent-lang
+%{_datadir}/locale/**/*
+
+
+%files -n %{libname}
+%{_libdir}/*.so.*
+%if 0%{?suse_version}
+%files -n typelib-1_0-libvalent-%{soname}
+%endif
+%{_libdir}/girepository-1.0/*
+
+%files -n libvalent-devel
+%{_includedir}/**/*
+%dir %{_includedir}/*
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*
+%{_datadir}/vala/**/*
+%dir %{_libdir}/pkgconfig
+%dir %{_datadir}/vala
+%{_datadir}/gir-1.0/*
+%dir %{_datadir}/gir-1.0
 
 %changelog
-* Sun Mar 15 2026 Tulip Blossom <tulilirockz@outlook.com>
-- Initial commit
