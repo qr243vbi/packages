@@ -719,6 +719,7 @@ def main():
         runtime_requires
     )
     if args.build:
+        print("Path:", path)
         return build_tree(tree, args.owner, args.project, args.id, path, args.login, args.token)
     
     return 1 if tree == 1 else 0
