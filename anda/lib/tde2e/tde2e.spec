@@ -6,7 +6,7 @@
 %global archive td-%{commit}
 
 Name:           tde2e
-Version:        0
+Version:        1.8.0
 Release:        0
 Summary:        Cross-platform library for building Telegram clients
 License:        BSL-1.0
@@ -36,7 +36,7 @@ TDE2E is a cross-platform library for building Telegram clients.
 Contains development files and static libraries.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{archive}
 
 %build
 %cmake \
