@@ -525,7 +525,17 @@ def build_tree(tree, owner, project, buildid='', path = None, login = '', token 
         owner = cli.base_proxy.auth_username()
     if project:
         build_ids = {}
-        if tree != 1:
+        if tree == 1:
+            if path is not None:
+                print("Creating a new build")
+                bld = cli.build_proxy.create_from_file(
+                    owner, 
+                    project, 
+                    path,
+                    buildopts={"timeout": 180000}
+                )
+                exit(0)
+        else:
             if buildid.isnumeric():
                 bld = {'id': int(buildid)}
             else:
