@@ -10,9 +10,7 @@ License:        MIT
 URL:            https://github.com/samsung/rlottie
 Source0:        %{url}/archive/%{commit}.tar.gz#/%{archive}.tar.gz
  
-BuildRequires: gtest-devel
 BuildRequires: gcc-c++
-BuildRequires: meson
 BuildRequires: cmake
 BuildRequires: gcc
  
@@ -36,6 +34,13 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %description devel
 %{summary}.
  
+%package image-loader
+Summary: Dynamic loader plugin for %{name}
+Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+ 
+%description image-loader
+%{summary}.
+ 
 %prep
 %autosetup -p1 -n %{archive}
  
@@ -57,6 +62,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/cmake/%{name}/
+
+%files image-loader
+%{_libdir}/librlottie-image-loader.so
  
 %changelog
 %autochangelog
