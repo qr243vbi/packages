@@ -1,5 +1,7 @@
 %if 0%{?suse_version} < 1600
+%if 0%{?fedora} < 42
 %define gcc_version 13
+%endif
 %endif
 
 %global commit_date 20260926
