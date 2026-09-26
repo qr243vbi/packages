@@ -44,6 +44,7 @@ BuildRequires: cmake(Qt6WaylandClient)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(fmt)
 BuildRequires: cmake(range-v3)
+BuildRequires: cmake(rlottie)
 BuildRequires: cmake(tg_owt)
 BuildRequires: cmake(tl-expected)
 BuildRequires: cmake(ada)
@@ -154,7 +155,7 @@ business messaging needs.
     -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c \
     -DTDESKTOP_DISABLE_AUTOUPDATE:BOOL=ON \
     -DDESKTOP_APP_USE_PACKAGED:BOOL=ON \
-    -DDESKTOP_APP_USE_PACKAGED_RLOTTIE:BOOL=OFF \
+    -DDESKTOP_APP_USE_PACKAGED_RLOTTIE:BOOL=ON \
     -DDESKTOP_APP_USE_PACKAGED_FONTS:BOOL=ON \
     -DDESKTOP_APP_DISABLE_WAYLAND_INTEGRATION:BOOL=OFF \
     -DDESKTOP_APP_DISABLE_X11_INTEGRATION:BOOL=OFF \
