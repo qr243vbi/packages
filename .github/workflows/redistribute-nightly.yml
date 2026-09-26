@@ -15,7 +15,7 @@ jobs:
   redistribute:
     permissions:
       contents: write
-    runs-on: arc-runner-set
+    runs-on:  ubuntu-latest
     container:
       image: ghcr.io/terrapkg/builder:frawhide
     steps:
