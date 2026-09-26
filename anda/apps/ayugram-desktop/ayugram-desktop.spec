@@ -81,7 +81,7 @@ BuildRequires: pkgconfig(xcb-keysyms)
 BuildRequires: pkgconfig(xcb-record)
 BuildRequires: pkgconfig(xcb-screensaver)
 BuildRequires: cmake(absl)
-BuildRequires: pkgconfig(tde2e)
+BuildRequires: cmake(tde2e)
 
 BuildRequires: boost-devel
 %if 0%{?suse_version} > 0
