@@ -14,8 +14,7 @@ URL:            https://github.com/GSConnect/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        nautilus-gsconnect.metainfo.xml
 Source2:        nemo-gsconnect.metainfo.xml
-# Fix Firewalld path
-Patch0:         %{name}-42-firewalld.patch
+Patch1:         gnome-shell-extension-gsconnect-42-firewalld.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  firewalld-filesystem
