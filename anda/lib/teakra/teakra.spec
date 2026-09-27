@@ -1,11 +1,13 @@
-
 Name:           teakra
+%global commit e
+%global archive %{name}-%{commit}
+
 Version:        0
 Release:        0
 Summary:        DSi/3DS DSP emulator, disassembler, assembler, and tester
 License:        MIT
 URL:            https://github.com/wwylele/teakra
-Source0:        %{name}-%{version}.tar.xz
+Source0:        %{url}/archive/%{commit}.tar.gz#/%{archive}.tar.gz
 BuildRequires:  cmake 
 BuildRequires:  (c_compiler or gcc) 
 BuildRequires:  (c++_compiler or gcc-c++)
@@ -27,21 +29,25 @@ Many thanks to Martin Korth and many other contributers for their help and their
 rm -rf %{buildroot}/usr/lib/debug
 rm %{buildroot}%{_libdir}/cmake/teakra/teakraConfig-relwithdebinfo.cmake
 
+%if 0%{?suse_version}
 %package -n lib%{name}0
 Summary: Runtime library for %{name}
 
 %description  -n lib%{name}0
 %{summary}
-
+%define libname lib%{name}0
+%else
+%define libname %{name}
+%endif
 
 %package devel
-Requires: lib%{name}0 = %{version}
+Requires: %{libname} = %{version}
 Summary: Development library for %{name}
 
 %description devel
 %{summary}
 
-%files -n lib%{name}0
+%files -n %{libname}
 %{_libdir}/libteakra.so.0
 %{_libdir}/libteakra_c.so.0
 
